@@ -1,9 +1,20 @@
 <h1><%= @list.name%></h1>
+<%= button_to "Delete List", {:controller => :lists, 
+										:action => 'destroy',
+										:id => @list.id}, :method => :delete %>
+<br>
 <div>
 	<ul>
 	<% @tasks.each do |task| %>
 		<li>
 			<%= task.task %>
+			<% if task.state == false %>
+				<%= button_to "Completed", {:controller => :tasks, 
+														:action => 'update',
+														:id => task.id}, :method => :put %>
+			<% else %> 
+				<p>COMPLETED!!!</p>
+			<% end %>
 		</li>
 	<% end %>
 	</ul>

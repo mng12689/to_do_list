@@ -30,6 +30,15 @@ class TasksController < ApplicationController
 	end
 
 	def update
+		@task = Task.find(params[:id])
+		@task.state = true
+		@list = List.find(@task.list_id)
+		if @task.save
+			flash[:success] = "TASK COMPLETED!!!"
+			redirect_to @list
+		else
+			render @list
+		end		
 	end 
 
 end 

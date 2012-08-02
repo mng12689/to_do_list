@@ -5,6 +5,7 @@ class ListsController < ApplicationController
 	def home
 
 		@lists = List.all
+		@tasks = Task.all
 
 	end
 
@@ -45,6 +46,11 @@ class ListsController < ApplicationController
 	end
 
 	def destroy
-
+		@list = List.find(params[:id])
+		if @list.destroy 
+			redirect_to root_path
+		else
+			render 'show'
+		end
 	end 
 end 
