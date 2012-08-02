@@ -1,0 +1,12 @@
+<h1>LIST OF LISTS</h1>
+<div>
+	<ul>
+		<% for list in @lists do %>
+			<%= link_to list.name, "/lists/#{list.id}" %>
+			<br>
+		<% end %> 
+	</ul>
+</div> 
+<div>
+	<%= link_to "Add List", new_list_path %>
+</div>

@@ -1,0 +1,13 @@
+<h1>ADD TASK!!!</h1>
+<div>
+	<%= form_for(@task) do |f| %>
+		<p>
+			<%= f.label :task %>
+			<%= f.text_field :task %>
+		</p>
+			<%= f.hidden_field :list_id, value: @list_id %>
+		<p>
+			<%= f.submit %>
+		</p>
+	<% end %>
+</div>
