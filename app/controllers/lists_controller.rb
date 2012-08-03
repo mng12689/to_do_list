@@ -36,12 +36,12 @@ class ListsController < ApplicationController
 		@tasks = Task.find_all_by_list_id(params[:id])
 		@list = List.find(params[:id])
 
-		respond_with([list: @list, tasks: @tasks])
+		respond_with({list: @list, tasks: @tasks})
 
 	end
 
 	def destroy
-		
+
 		@list = List.find(params[:id])
 
 		flash[:success] = "LIST DELETED!!!" if @list.destroy 
