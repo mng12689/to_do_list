@@ -1,7 +1,7 @@
 require 'rest_client'
 require 'crack'
 
-def parse_response(response,format)
+def parse_response(response, format)
   
   parsed_response = nil
   if format == 'json'
@@ -31,9 +31,9 @@ def create_task(task, list_id, format)
   RestClient.post(path, :task => {task: task, list_id: list_id})
 end
 
-def update_task(task_id, state, sssformat)
+def update_task(task_id, state, format)
   path = "localhost:3000/tasks/#{task_id}/.#{format}"
-  RestClient.put(path, :task => {state: state}), 
+  RestClient.put(path, :task => {state: state}) 
 end
   
 
