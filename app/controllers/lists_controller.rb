@@ -13,8 +13,6 @@ class ListsController < ApplicationController
 
 		@list = List.new
 
-		#respond_with(@list)
-
 	end 
 
 	def edit
@@ -27,14 +25,9 @@ class ListsController < ApplicationController
 
 		@list = List.new(params[:list])
 
-		if @list.save
-			flash[:success] = "LIST SAVED!!!"
-			redirect_to @list
-		else
-			render 'new'
-		end
+		flash[:success] = "LIST SAVED!!!" if @list.save
 
-		#respond_with(@list)
+		respond_with(@list)
 
 	end 
 
@@ -43,14 +36,17 @@ class ListsController < ApplicationController
 		@tasks = Task.find_all_by_list_id(params[:id])
 		@list = List.find(params[:id])
 
+		respond_with([list: @list, tasks: @tasks])
+
 	end
 
 	def destroy
+		
 		@list = List.find(params[:id])
-		if @list.destroy 
-			redirect_to root_path
-		else
-			render 'show'
-		end
+
+		flash[:success] = "LIST DELETED!!!" if @list.destroy 
+
+		respond_with(@list, :location => root_path)
+
 	end 
 end 
