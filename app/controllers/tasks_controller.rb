@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
 
+	respond_to :html, :json, :xml
+
 	def show
 	end 
 
@@ -13,16 +15,12 @@ class TasksController < ApplicationController
 	def create
 		
 		@task = Task.new(params[:task])
-		puts "printing create stuff"
-		puts @task.list_id
-		puts params[:task]
+
 		@list = List.find(@task.list_id)
-		if @task.save
-			flash[:success] = "TASK ADDED!!!"
-			redirect_to @list
-		else
-			render 'edit'
-		end
+
+		flash[:success] = "TASK ADDED!!!" if @task.save
+			
+		respond_with(@task, :location => list_path(@task.list_id))
 
 	end 
 
@@ -30,15 +28,17 @@ class TasksController < ApplicationController
 	end
 
 	def update
+
 		@task = Task.find(params[:id])
+
 		@task.state = true
+
 		@list = List.find(@task.list_id)
-		if @task.save
-			flash[:success] = "TASK COMPLETED!!!"
-			redirect_to @list
-		else
-			render @list
-		end		
+
+		flash[:success] = "TASK COMPLETED!!!" if @task.save
+			
+		respond_with(@task, :location => list_path(@task.list_id))	
+
 	end 
 
 end 
